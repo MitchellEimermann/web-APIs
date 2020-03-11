@@ -45,6 +45,7 @@
   
       // keep track of user's answers
       let numCorrect = 0;
+        
   
       // for each question...
       myQuestions.forEach( (currentQuestion, questionNumber) => {
@@ -67,11 +68,25 @@
           // color the answers red
           answerContainers[questionNumber].style.color = 'red';
         }
+
       });
   
       // show number of correct answers out of total
       resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+
+      var highScore = 0;
+      if (numCorrect > highScore) {
+        highScore = numCorrect
+        localStorage.setItem("highscore", highScore);
+        highScoreContainer.innerHTML = highScore;
+      }else{
+          var oldHighScore = localStorage.getItem("highscore");
+          console.log(oldHighScore);
+          highScoreContainer.innerHTML = oldHighScore;
+      }
+    
     }
+    
   
     function showSlide(n) {
       slides[currentSlide].classList.remove('active-slide');
@@ -103,36 +118,36 @@
   
     // Variables
     const quizContainer = document.getElementById('quiz');
+    const highScoreContainer = document.querySelector("#highscore");
     const resultsContainer = document.getElementById('results');
     const submitButton = document.getElementById('submit');
     const myQuestions = [
       {
-        question: "Who invented JavaScript?",
+        question: "what is the differance between CONST and LET?",
         answers: {
-          a: "Douglas Crockford",
-          b: "Sheryl Sandberg",
-          c: "Brendan Eich"
+          a: "const can change and let cannot",
+          b: "const cant change but let can",
+          c: "none of the above"
+        },
+        correctAnswer: "b"
+      },
+      {
+        question: "if you want find out if two strings are equal how do you code that?",
+        answers: {
+          a: "randomString = string",
+          b: "randomString == string",
+          c: "randomString === string"
         },
         correctAnswer: "c"
       },
       {
-        question: "Which one of these is a JavaScript package manager?",
+        question: "how do you push an element to an array?",
         answers: {
-          a: "Node.js",
-          b: "TypeScript",
-          c: "npm"
+          a: ".push(arry)",
+          b: "arry.push()",
+          c: ".addElement(arry)"
         },
-        correctAnswer: "c"
-      },
-      {
-        question: "Which tool can you use to ensure code quality?",
-        answers: {
-          a: "Angular",
-          b: "jQuery",
-          c: "RequireJS",
-          d: "ESLint"
-        },
-        correctAnswer: "d"
+        correctAnswer: "a"
       }
     ];
   
